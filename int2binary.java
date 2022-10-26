@@ -9,33 +9,39 @@ class num2Binary {
         digits = string;
     }
 
-    private static String int2binary(int n) {
-        return Integer.toBinaryString(n);
+    private static int int2binary(int num) {
+        String num2 = Integer.toBinaryString(num); // Was relevant when using String output
+        num = Integer.parseInt(num2);
+
+        return num;
     }
 
-    private static String addPadding(String lunchNumBinary){
-        return String.format(digits, lunchNumBinary).replaceAll(" ", "0");
+    private static int addPadding(int idBinary){
+        String temp = Integer.toString(idBinary);
+        temp = String.format(digits, idBinary).replaceAll(" ", "0");
+        int temp2 = Integer.parseInt(temp);
+        return temp2;
     }
-
-    private static String addBlocks(String lunchNumBinary, String separator) {
+/* Was relevant when using String output 
+    private static String addBlocks(String idBinary, String separator) {
         StringBuffer sb = new StringBuffer();
-        for (int i = 0; i< lunchNumBinary.length(); i++ ){
-            sb.append(lunchNumBinary.charAt(i));
-            if (i%4 == 3 && i != lunchNumBinary.length() - 1)
+        for (int i = 0; i< idBinary.length(); i++ ){
+            sb.append(idBinary.charAt(i));
+            if (i%4 == 3 && i != idBinary.length() - 1)
                 sb.append(separator);
         }
         return sb.toString();
     }
-
-    public static String[] convert2Binary(String[] peopleIntel) {
-        String [] lunchNumBinary = new String[peopleIntel.length];
-        for (int i = 0; i < peopleIntel.length; i++){
-            lunchNumBinary[i] = int2binary(peopleIntel[i]);
-            //lunchNumBinary[i] = addPadding(lunchNumBinary[i]);
-            //lunchNumBinary[i] = addBlocks(lunchNumBinary[i], "_");  //This is helpful for debugging
-            System.out.println(lunchNumBinary[i]);
+*/
+    public static int[] convert2Binary(int[] id) {
+        int [] idBinary = new int[id.length];
+        for (int i = 0; i < id.length; i++){
+            idBinary[i] = int2binary(id[i]);
+            //idBinary[i] = addPadding(idBinary[i]);
+            //idBinary[i] = addBlocks(idBinary[i], "_");  //This is helpful for debugging
+            System.out.println(idBinary[i]);
         }
-        return lunchNumBinary;      
+        return idBinary;      
     }
 
 
