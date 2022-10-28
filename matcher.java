@@ -7,7 +7,7 @@ public class matcher{
         placeholder.myMain();
     }
 
-    public void myMain(){
+    private void myMain(){
         /*
          * 0 = dislikes, 1 = likes
          * Organized like: Gender and Prefrence (must be compatible), Strong Hobbies (Should have 2+ aligning Strong hobbies), Strong Prefrence Hobbies (Should have 2+ aligning Strong hobbies), Weak Hobbies (ex: fav subject, lower time commitment things, recent hobbies)
@@ -57,12 +57,12 @@ public class matcher{
         int[][] fmGroup = new int[peopleIntel.length][peopleIntel[0].length];
         for (int i = 0; i<peopleIntel.length; i++){
             //mmGroup
-            if (peopleIntel[i][2] == 0) {
+            if (peopleIntel[i][2] == 1) {
                 if (peopleIntel[i][3] == 0){
                     for (int k = 0; k < mmGroup[i].length; k++){
                         mmGroup[i][k] = peopleIntel[i][k];
                     }
-                    System.out.println("mmGroup");
+                    //System.out.println("mmGroup");
                 }
             } 
             //mfgroup
@@ -71,7 +71,7 @@ public class matcher{
                     for (int k = 0; k < mmGroup[i].length; k++){
                         mfGroup[i][k] = peopleIntel[i][k];
                     }
-                    System.out.println("mfGroup");
+                    //System.out.println("mfGroup");
                 }
             } 
             //ffgroup
@@ -80,7 +80,7 @@ public class matcher{
                     for (int k = 0; k < mmGroup[i].length; k++){
                         ffGroup[i][k] = peopleIntel[i][k];
                     }
-                    System.out.println("ffGroup");
+                    //System.out.println("ffGroup");
                 }
             } 
             //fmgroup
@@ -89,12 +89,13 @@ public class matcher{
                     for (int k = 0; k < mmGroup[i].length; k++){
                         fmGroup[i][k] = peopleIntel[i][k];
                     }
-                    System.out.println("fmGroup");
+                    //System.out.println("fmGroup");
                 }
             } 
-            System.out.println("iterated " + (i+1) + " times");
+            //System.out.println("iterated " + (i+1) + " times");
         }
         //Code to verify output makes sense
+        /*
         for (int i = 0; i<peopleIntel.length; i++){
 
 
@@ -103,23 +104,27 @@ public class matcher{
             System.out.println(ffGroup[i][0]+" ffGroup");
             System.out.println(fmGroup[i][0]+" fmGroup");
         }
-
+        */
         //Splitting people based off age prefrence
         //mf and fm for now
-        for (int i = 0; i<mmGroup.length; i++){
-            for (int k = 0; k<mfGroup.length; k++){
-                mmGroup[i][1] = mfGroup[k][0];
-                mfGroup[k][1] = mmGroup[i][0];
-            }
-        }
-
+        System.out.println("tyesting 1");
         for (int i = 0; i<mmGroup.length; i++){
             System.out.println(mmGroup[i][0]);
-            System.out.println(mmGroup[i][1]);
-
             System.out.println(mfGroup[i][0]);
-            System.out.println(mfGroup[i][1]);
+            mmGroup[i][1] = mfGroup[i][0];
+            //mfGroup[i][1] = mmGroup[i][0];
         }
+        
+        System.out.println("tyesting 2");
+        for (int i = 0; i<mmGroup.length; i++){
+            System.out.println("id for straight male " + i + ": " + mmGroup[i][0]);
+            System.out.println("id for straight male partner " + i + ": " + mmGroup[i][1]);
+
+            System.out.println("id for straight female " + i + ": " + mfGroup[i][0]);
+            System.out.println("id for straight female partner " + i + ": " + mfGroup[i][1]);
+    
+        }
+        
 
     }
 
