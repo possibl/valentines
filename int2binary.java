@@ -16,11 +16,11 @@ class num2Binary {
         return num;
     }
 
-    private static int addPadding(int idBinary){
-        String temp = Integer.toString(idBinary);
-        temp = String.format(digits, idBinary).replaceAll(" ", "0");
-        int temp2 = Integer.parseInt(temp);
-        return temp2;
+    public static String addPadding(int idBinary){
+        String temp = Integer.toBinaryString(idBinary);
+        temp = String.format(digits, temp).replaceAll(" ", "0");
+        //int temp2 = Integer.parseInt(temp);temp
+        return temp;
     }
 /* Was relevant when using String output 
     private static String addBlocks(String idBinary, String separator) {
