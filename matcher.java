@@ -1,9 +1,16 @@
 package valentines;
 
-public class matcher{
+/*
+ * TODO
+ * Add lesbian females
+ * id 0 cannot be used
+ * Some out of bounds exceptions
+ */
+
+public class Main{
 
     public static void main(String[] args){
-        matcher placeholder = new matcher();
+        Main placeholder = new Main();
         placeholder.myMain();
     }
 
@@ -21,112 +28,102 @@ public class matcher{
          * 1000 = 9th
          */
         //all info. Should be in a seperate text file. This is for testing
-        int[][] peopleIntel = 
+        int[][] peopleIntel = new int [50][6]; 
+        /* = 
         {
-            {12345,00000,0,1,0100,1100},
-            {23456,00000,0,1,1000,1000},
-            {34567,00000,0,1,0100,0111},
-            {45678,00000,1,0,1000,0111},
-            {56789,00000,1,0,1000,0111},
-            {99999,00000,1,0,0100,0111}
+            {12345,0,0,0,0b0100,0b1000},
+            {23456,0,0,0,0b1000,0b1100},
+            {34567,0,0,1,0b0100,0b0111},
+            {45678,0,1,0,0b1000,0b1111},
+            {56789,0,1,0,0b1000,0b1100},
+            {99999,0,1,0,0b0100,0b0111} 
         };
+        */
+
+        for (int i = 1; i<peopleIntel.length; i++){
+            peopleIntel[i][0] = i;
+            peopleIntel[i][1] = 0;
+            peopleIntel[i][2] = (int) Math.round(Math.random());
+            peopleIntel[i][3] = (int) Math.round(Math.random());
+            int gender = (int) Math.round(Math.random()*3);
+            switch (gender) {
+                case 0:
+                    gender = 8;
+                    break;
+                case 1:
+                    gender = 4;
+                    break;
+                case 2:
+                    gender = 2;
+                    break;
+                case 3:
+                    gender = 1;
+                    break;
+            }
+            peopleIntel[i][4] = gender;
+            peopleIntel[i][5] = (int) Math.round(Math.random()*15);
+        }
+        for (int i = 0; i<peopleIntel.length; i++){
+            System.out.println("Person: " + i);
+            for (int j = 1; j<peopleIntel[i].length-2; j++){
+                System.out.println(peopleIntel[i][j]);
+            }
+            num2Binary test1 = new num2Binary("%4s");
+            num2Binary test2 = new num2Binary("%4s");
+            System.out.println(test1.addPadding(peopleIntel[i][4]));
+            System.out.println(test2.addPadding(peopleIntel[i][5]));
+        }
 
         //id info
         int[] id = new int[peopleIntel.length];
         for (int i = 0; i<id.length; i++){
             id[i] = peopleIntel[i][0];
-            System.out.println(id[i]);
+            //System.out.println(id[i]);
         }
 
         /* 
-         * Sorting Straight Males, Straight Females, Gay Males, Lesbian Females, etc 
-         * mfGroup, fmGroup, mmGroup, ffGroup, etc
-         * gender-PerfeeredPartnersGender
-         * 
-         * 
-         * 
-         * THIS MUST BE MADE INTO A CLASS AND 
-         * Surrently there is an  logic error that means people are not being assigned a group
-         * 
+         * Soring people into gender and genderPref
          * 
         */
 
-        int[][] mmGroup = new int[peopleIntel.length][peopleIntel[0].length];
-        int[][] mfGroup = new int[peopleIntel.length][peopleIntel[0].length];
-        int[][] ffGroup = new int[peopleIntel.length][peopleIntel[0].length];
-        int[][] fmGroup = new int[peopleIntel.length][peopleIntel[0].length];
-        for (int i = 0; i<peopleIntel.length; i++){
-            //mmGroup
-            if (peopleIntel[i][2] == 1) {
-                if (peopleIntel[i][3] == 0){
-                    for (int k = 0; k < mmGroup[i].length; k++){
-                        mmGroup[i][k] = peopleIntel[i][k];
-                    }
-                    //System.out.println("mmGroup");
-                }
-            } 
-            //mfgroup
-            if (peopleIntel[i][2] == 0) { //self sexuality identification
-                if (peopleIntel[i][3] == 1){ //preferred partner sexuality identification
-                    for (int k = 0; k < mmGroup[i].length; k++){
-                        mfGroup[i][k] = peopleIntel[i][k];
-                    }
-                    //System.out.println("mfGroup");
-                }
-            } 
-            //ffgroup
-            if (peopleIntel[i][2] == 1) { //self sexuality identification
-                if (peopleIntel[i][3] == 1){ //preferred partner sexuality identification
-                    for (int k = 0; k < mmGroup[i].length; k++){
-                        ffGroup[i][k] = peopleIntel[i][k];
-                    }
-                    //System.out.println("ffGroup");
-                }
-            } 
-            //fmgroup
-            if (peopleIntel[i][2] == 1) { //self sexuality identification
-                if (peopleIntel[i][3] == 0){ //preferred partner sexuality identification
-                    for (int k = 0; k < mmGroup[i].length; k++){
-                        fmGroup[i][k] = peopleIntel[i][k];
-                    }
-                    //System.out.println("fmGroup");
-                }
-            } 
-            //System.out.println("iterated " + (i+1) + " times");
-        }
-        //Code to verify output makes sense
+        //Striaght Females
+        prefGroupSorter fm_group = new prefGroupSorter(peopleIntel, 1, 0);
+        fm_group.classifier();
+        int [][] fmGroup = fm_group.cleaner(0, 0);
+
+        //Straight Males
+        prefGroupSorter mf_group = new prefGroupSorter(peopleIntel, 0, 1);
+        mf_group.classifier();
+        int [][] mfGroup = mf_group.cleaner(0, 0);
+
+        //Gay males
+        prefGroupSorter mm_group = new prefGroupSorter(peopleIntel, 0, 0);
+        mm_group.classifier();
+        int [][] mmGroup = mm_group.cleaner(0, 0);
+
         /*
-        for (int i = 0; i<peopleIntel.length; i++){
+         * Matching people based off of age
+         * 
+         */
+        System.out.println("Matching Results- ");
 
+        //Matching Striaght Males and Straight Females
+        matcher mf_match = new matcher(mfGroup, fmGroup);
+        int[][] mfMatch = mf_match.agePrefCouples();
 
-            System.out.println(mmGroup[i][0]+" mmGroup");
-            System.out.println(mfGroup[i][0]+" mfGroup");
-            System.out.println(ffGroup[i][0]+" ffGroup");
-            System.out.println(fmGroup[i][0]+" fmGroup");
+        System.out.println("Matching Results for MF- ");
+        for (int i = 0; i<mfMatch.length; i++){
+            System.out.println(mfMatch[i][0] + " with " + mfMatch[i][1]);
         }
-        */
-        //Splitting people based off age prefrence
-        //mf and fm for now
-        System.out.println("tyesting 1");
-        for (int i = 0; i<mmGroup.length; i++){
-            System.out.println(mmGroup[i][0]);
-            System.out.println(mfGroup[i][0]);
-            mmGroup[i][1] = mfGroup[i][0];
-            //mfGroup[i][1] = mmGroup[i][0];
-        }
-        
-        System.out.println("tyesting 2");
-        for (int i = 0; i<mmGroup.length; i++){
-            System.out.println("id for straight male " + i + ": " + mmGroup[i][0]);
-            System.out.println("id for straight male partner " + i + ": " + mmGroup[i][1]);
 
-            System.out.println("id for straight female " + i + ": " + mfGroup[i][0]);
-            System.out.println("id for straight female partner " + i + ": " + mfGroup[i][1]);
-    
-        }
-        
+        //Matching Gay Males
+        matcher mm_match = new matcher(mmGroup, mmGroup);
+        int[][] mmMatch = mm_match.agePrefCouples();
 
+        System.out.println("Matching Results for MM- ");
+        for (int i = 0; i<mmMatch.length; i++){
+            System.out.println(mmMatch[i][0] + " with " + mmMatch[i][1]);
+        }
     }
-
 
 }
