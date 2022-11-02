@@ -61,6 +61,7 @@ public class prefGroupSorter {
             if (rowsToKeep[i] == true){
                 for (int k = 0; k<_group[0].length;k++){
                     group [j][k] = _group[i][k];
+                    //System.out.println(group[j][k]);
                 }
                 j++;
             } 
